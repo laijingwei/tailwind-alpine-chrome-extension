@@ -1,4 +1,7 @@
 module.exports = {
+  purge: {
+    content: ["./src/**/*.html"],
+  },
   theme: {
     minWidth: {
       '0': '0',
