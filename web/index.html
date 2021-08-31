@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>博思高研发</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.2.4/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<div
+  x-data="{
+    search: '',
+    posts: [],
+    get filteredItems() {
+      return this.posts.filter(
+        i => i.name.includes(this.search)
+      )
+    }
+  }"
+  x-init="posts = await (await fetch('http://localhost:1337/categories')).json()"
+>
+  <input x-model="search" placeholder="Search...">
+
+  <ul>
+    <template x-for="item in filteredItems" :key="item.id">
+      <li x-text="item.name"></li>
+    </template>
+  </ul>
+</div>
+
+</body>
+</html>
