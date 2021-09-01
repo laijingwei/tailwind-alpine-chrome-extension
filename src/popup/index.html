@@ -8,11 +8,20 @@
 <div class="p-4 min-w-popup">
 
   <div
-    x-data="{ posts: [] }"
-    x-init="fetch('http://api.local.laijw.com/bsg-ext-urls?_sort=sort:desc').then(res => res.json()).then(data => posts = data)"
+    x-data="{
+    search: '',
+    posts: [],
+    get filteredItems() {
+      return this.posts.filter(
+        i => i.title.toLowerCase().includes(this.search)
+      )
+    }
+  }"
+    x-init="posts = await (await fetch('http://api.local.laijw.com/bsg-ext-urls?_sort=sort:desc')).json()"
   >
+    <input class="w-full text-base mb-2 p-1 border-2 rounded" aria-label="搜索" x-model="search" placeholder="搜索...">
     <div class="grid grid-cols-3 gap-1">
-      <template x-for="item in posts">
+      <template x-for="item in filteredItems">
         <div class="bg-gray-100 text-center rounded-sm text-teal-500 p-2 text-base cursor-pointer hover:text-blue-600">
           <a x-text="item.title" :href="item.url" target="_blank"></a>
         </div>

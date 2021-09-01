@@ -83,6 +83,18 @@
     anymatch "^3.0.0"
     source-map "^0.6.0"
 
+"@vue/reactivity@^3.0.2":
+  version "3.2.6"
+  resolved "https://registry.nlark.com/@vue/reactivity/download/@vue/reactivity-3.2.6.tgz?cache=0&sync_timestamp=1629824729577&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40vue%2Freactivity%2Fdownload%2F%40vue%2Freactivity-3.2.6.tgz#b8993fa6f48545178e588e25a9c9431a1c1b7d50"
+  integrity sha1-uJk/pvSFRReOWI4lqclDGhwbfVA=
+  dependencies:
+    "@vue/shared" "3.2.6"
+
+"@vue/shared@3.2.6":
+  version "3.2.6"
+  resolved "https://registry.nlark.com/@vue/shared/download/@vue/shared-3.2.6.tgz?cache=0&sync_timestamp=1629824858387&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40vue%2Fshared%2Fdownload%2F%40vue%2Fshared-3.2.6.tgz#2c22bae88fe2b7b59fa68a9c9c4cd60bae2c1794"
+  integrity sha1-LCK66I/it7WfpoqcnEzWC64sF5Q=
+
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
   resolved "https://registry.nlark.com/@webassemblyjs/ast/download/@webassemblyjs/ast-1.9.0.tgz?cache=0&sync_timestamp=1625473466238&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40webassemblyjs%2Fast%2Fdownload%2F%40webassemblyjs%2Fast-1.9.0.tgz#bd850604b4042459a5a41cd7d338cbed695ed964"
@@ -282,10 +294,12 @@ ajv@^6.1.0, ajv@^6.10.2:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-alpinejs@^1.9.5:
-  version "1.12.0"
-  resolved "https://registry.nlark.com/alpinejs/download/alpinejs-1.12.0.tgz#d252d94cab899bf2674619b41b81308c6ed5415c"
-  integrity sha1-0lLZTKuJm/JnRhm0G4EwjG7VQVw=
+alpinejs@^3.2.4:
+  version "3.2.4"
+  resolved "https://registry.nlark.com/alpinejs/download/alpinejs-3.2.4.tgz#04dbda9df483cd686d3f0d183a074c5c98060810"
+  integrity sha1-BNvanfSDzWhtPw0YOgdMXJgGCBA=
+  dependencies:
+    "@vue/reactivity" "^3.0.2"
 
 ansi-colors@^3.0.0:
   version "3.2.4"
