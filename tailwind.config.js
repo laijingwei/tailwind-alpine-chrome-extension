@@ -2,6 +2,7 @@ module.exports = {
   purge: {
     content: ["./src/**/*.html"],
   },
+  darkMode: 'media',
   theme: {
     minWidth: {
       '0': '0',

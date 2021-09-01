@@ -10,13 +10,14 @@
   },
   "devDependencies": {
     "alpinejs": "^3.2.4",
-    "autoprefixer": "^9.7.4",
+    "autoprefixer": "^10.3.3",
     "concurrently": "^5.1.0",
     "copy-webpack-plugin": "^5.1.1",
     "cross-env": "^7.0.0",
-    "postcss-cli": "^7.1.0",
-    "postcss-loader": "^3.0.0",
-    "tailwindcss": "^1.1.4",
+    "postcss": "^8.3.6",
+    "postcss-cli": "^8.3.1",
+    "postcss-loader": "^6.1.1",
+    "tailwindcss": "^2.2.9",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-extension-reloader": "^1.1.4"
