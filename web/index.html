@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
   <title>博思高研发</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
+  <link rel="shortcut icon" href="//cdn.jsdelivr.net/npm/@apollographql/graphql-playground-react@1.7.39/build/favicon.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.2.4/dist/cdn.min.js"></script>
 </head>
@@ -19,13 +27,13 @@
       )
     }
   }"
-  x-init="posts = await (await fetch('http://localhost:1337/categories')).json()"
+  x-init="posts = await (await fetch('http://api.local.laijw.com/bsg-ext-urls')).json()"
 >
-  <input x-model="search" placeholder="Search...">
+  <input class="w-full" aria-label="搜索" x-model="search" placeholder="搜索...">
 
-  <ul>
+  <ul class="py-4 bg-gray-800 rounded shadow">
     <template x-for="item in filteredItems" :key="item.id">
-      <li x-text="item.name"></li>
+      <li class="text-xl p-6 my-2 rounded bg-gray-700 hover:bg-gray-600 hover:shadow-2xl" x-text="item.title"></li>
     </template>
   </ul>
 </div>

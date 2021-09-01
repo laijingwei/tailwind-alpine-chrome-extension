@@ -5,29 +5,21 @@
   <link rel="stylesheet" type="text/css" href="./popup.css">
 </head>
 <body>
-<div class="p-6 min-w-popup h-64">
-  <h1 class="text-gray-500 text-2xl">博思高研发资源汇总</h1>
-  <hr/>
-  <div class="py-2">
+<div class="p-4 min-w-popup">
 
-    <div
-      class="mt-4 bg-gray-100 text-center rounded-sm"
-      x-data="{
-        colors: [
-          { id: 1, label: '物业端' },
-          { id: 2, label: '运营端' },
-          { id: 3, label: '旧平台' },
-        ]
-      }"
-    >
-      <ul>
-        <template x-for="color in colors" :key="color.id">
-          <li x-text="color.label" @click="console.log('clicked')" class="text-teal-500 p-2 text-base cursor-pointer hover:text-blue-200"></li>
-        </template>
-      </ul>
+  <div
+    x-data="{ posts: [] }"
+    x-init="fetch('http://api.local.laijw.com/bsg-ext-urls?_sort=sort').then(res => res.json()).then(data => posts = data)"
+  >
+    <div class="grid grid-cols-3 gap-1">
+      <template x-for="item in posts">
+        <div class="bg-gray-100 text-center rounded-sm text-teal-500 p-2 text-base cursor-pointer hover:text-blue-600">
+          <a x-text="item.title" :href="item.url" target="_blank"></a>
+        </div>
+      </template>
     </div>
-
   </div>
+
 </div>
 <script type="text/javascript" src="./popup.dist.js"></script>
 </body>
