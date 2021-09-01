@@ -27,7 +27,7 @@
       )
     }
   }"
-  x-init="posts = await (await fetch('http://api.local.laijw.com/bsg-ext-urls')).json()"
+  x-init="posts = await (await fetch('http://api.local.laijw.com/bsg-ext-urls?_sort=sort:desc')).json()"
 >
   <input class="w-full" aria-label="搜索" x-model="search" placeholder="搜索...">
 

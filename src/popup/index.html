@@ -9,7 +9,7 @@
 
   <div
     x-data="{ posts: [] }"
-    x-init="fetch('http://api.local.laijw.com/bsg-ext-urls?_sort=sort').then(res => res.json()).then(data => posts = data)"
+    x-init="fetch('http://api.local.laijw.com/bsg-ext-urls?_sort=sort:desc').then(res => res.json()).then(data => posts = data)"
   >
     <div class="grid grid-cols-3 gap-1">
       <template x-for="item in posts">
