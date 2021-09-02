@@ -3892,3 +3892,8 @@ yargs@^16.0.0:
     string-width "^4.2.0"
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
+
+zh_cn@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.nlark.com/zh_cn/download/zh_cn-0.0.7.tgz#774ae7c5086c9b87016bf6de9d438ef5693e1140"
+  integrity sha1-d0rnxQhsm4cBa/benUOO9Wk+EUA=
