@@ -15,26 +15,17 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.2.4/dist/cdn.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios@0.21.1/dist/axios.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/zh_cn@0.0.7/dist/zh_cn.min.js"></script>
 </head>
 <body>
 
 <div
-  x-data="{
-    search: '',
-    posts: [],
-    get filteredItems() {
-      return this.posts.filter(
-        i => zh(i.title.toLowerCase()).join().includes(this.search)
-      )
-    }
-  }"
-  x-init="posts = (await axios('http://api.local.laijw.com/bsg-ext-urls?_sort=sort:desc')).data"
+  x-data="{ search: '', posts: [] }"
+  x-init="posts = (await axios('http://api.local.laijw.com/bsg-ext-urls?_sort=sort:desc&_limit=9')).data"
 >
-  <input class="w-full" aria-label="搜索" x-model="search" placeholder="搜索...">
+  <input @keyup="posts = (await axios(`http://api.local.laijw.com/bsg-ext-urls?_q=${search}&_sort=sort:desc&_limit=9`)).data" class="w-full" aria-label="搜索" x-model="search" placeholder="搜索...">
 
   <div class="flex flex-col py-4 bg-gray-800 rounded shadow">
-    <template x-for="item in filteredItems">
+    <template x-for="item in posts">
       <a
         x-text="item.title"
         :href="item.url"
