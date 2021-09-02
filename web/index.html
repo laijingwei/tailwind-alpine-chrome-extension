@@ -38,7 +38,7 @@
       <a
         x-text="item.title"
         :href="item.url"
-        @click="axios.put(`http://api.local.laijw.com/bsg-ext-urls/${item.id}`, { sort: item.sort + 1 })"
+        @click="await axios.put(`http://api.local.laijw.com/bsg-ext-urls/${item.id}`, { sort: item.sort + 1 })"
         target="_blank"
         class="text-xl hover:no-underline text-center p-6 my-2 rounded bg-gray-700 hover:bg-gray-600 hover:shadow-2xl"
       ></a>
