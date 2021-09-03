@@ -24,14 +24,14 @@
 >
   <input @keyup="posts = (await axios(`http://api.local.laijw.com/bsg-ext-urls?_q=${search}&_sort=sort:desc&_limit=9`)).data" class="w-full" aria-label="搜索" x-model="search" placeholder="搜索...">
 
-  <div class="flex flex-col py-4 bg-gray-800 rounded shadow">
+  <div class="grid grid-cols-3 gap-2 py-4 bg-gray-800 rounded shadow">
     <template x-for="item in posts">
       <a
         x-text="item.title"
         :href="item.url"
         @click="await axios.put(`http://api.local.laijw.com/bsg-ext-urls/${item.id}`, { sort: item.sort + 1 })"
         target="_blank"
-        class="text-xl hover:no-underline text-center p-6 my-2 rounded bg-gray-700 hover:bg-gray-600 hover:shadow-2xl"
+        class="text-xl hover:no-underline text-center p-6 rounded bg-gray-700 hover:bg-gray-600 hover:shadow-2xl"
       ></a>
     </template>
   </div>

@@ -9,10 +9,10 @@
 
   <div
     x-data="{ search: '', posts: [] }"
-    x-init="posts = (await axios('http://api.local.laijw.com/bsg-ext-urls?_sort=sort:desc&_limit=9')).data"
+    x-init="posts = (await axios('http://api.local.laijw.com/bsg-ext-urls?_sort=sort:desc&_limit=5')).data"
   >
-    <input @keyup="posts = (await axios(`http://api.local.laijw.com/bsg-ext-urls?_q=${search}&_sort=sort:desc&_limit=9`)).data" autofocus class="w-full text-base dark:bg-gray-800 mb-2 p-1 border-2 dark:border-gray-600 dark:text-gray-100 rounded" aria-label="搜索" x-model="search" placeholder="搜索...">
-    <div class="grid grid-cols-3 gap-1">
+    <input @keyup="posts = (await axios(`http://api.local.laijw.com/bsg-ext-urls?_q=${search}&_sort=sort:desc&_limit=5`)).data" autofocus class="w-full text-base dark:bg-gray-800 mb-2 p-1 border-2 dark:border-gray-600 dark:text-gray-100 rounded" aria-label="搜索" x-model="search" placeholder="搜索...">
+    <div class="grid grid-cols-1 gap-1">
       <template x-for="item in posts">
         <div
           x-text="item.title"
