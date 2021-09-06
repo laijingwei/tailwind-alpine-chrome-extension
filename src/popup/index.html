@@ -8,8 +8,8 @@
 <div class="p-4 min-w-popup">
 
   <div
-    x-data="{ current: 0, search: '', posts: [] }"
-    x-init="posts = await execQueryBsgExtUrls()"
+    x-data="{ current: 0, announcement: '', search: '', posts: [] }"
+    x-init="posts = await execQueryBsgExtUrls(); announcement = await execQueryBsgExtAnnouncement()"
   >
     <input
       x-model="search"
@@ -32,6 +32,12 @@
         ></div>
       </template>
     </div>
+    <template x-if="announcement">
+      <p
+        class="text-sm text-yellow-600 mt-3 rounded text-center"
+        x-text="announcement"
+      ></p>
+    </template>
   </div>
 
 </div>

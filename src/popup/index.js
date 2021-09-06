@@ -5,6 +5,13 @@ window.Alpine = Alpine
 window.axios = axios
 
 let limit = 5;
+let QueryBsgExtAnnouncement = `
+    query {
+      bsgExtAnnouncement {
+        title
+      }
+    }
+  `;
 let QueryBsgExtUrls = `
     query ($limit: Int!) {
       bsgExtUrls(limit: $limit, sort: "sort:desc") {
@@ -37,6 +44,15 @@ let AddCountBsgExtUrls = `
       }
     }
   `;
+
+window.execQueryBsgExtAnnouncement = async function execQueryBsgExtAnnouncement() {
+  try {
+    let {data} = await axios.post('http://api.local.laijw.com/graphql', {query: QueryBsgExtAnnouncement})
+    return data.data.bsgExtAnnouncement.title
+  } catch (e) {
+    return '无法连接至服务器'
+  }
+}
 
 window.execQueryBsgExtUrls = async function execQueryBsgExtUrls() {
   try {
