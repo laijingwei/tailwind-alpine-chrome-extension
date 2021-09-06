@@ -39,13 +39,21 @@ let AddCountBsgExtUrls = `
   `;
 
 window.execQueryBsgExtUrls = async function execQueryBsgExtUrls() {
-  let {data} = await axios.post('http://api.local.laijw.com/graphql', {query: QueryBsgExtUrls, variables: {limit}})
-  return data.data.bsgExtUrls
+  try {
+    let {data} = await axios.post('http://api.local.laijw.com/graphql', {query: QueryBsgExtUrls, variables: {limit}})
+    return data.data.bsgExtUrls
+  } catch (e) {
+    return [{ id: 0, title: '无法连接至服务器', url: '', sort: 0 }]
+  }
 }
 
 window.execSearchBsgExtUrls = async function execSearchBsgExtUrls(keywords) {
-  let {data} = await axios.post('http://api.local.laijw.com/graphql', {query: SearchBsgExtUrls, variables: {keywords,limit}})
-  return data.data.bsgExtUrls
+  try {
+    let {data} = await axios.post('http://api.local.laijw.com/graphql', {query: SearchBsgExtUrls, variables: {keywords,limit}})
+    return data.data.bsgExtUrls
+  } catch (e) {
+    return [{ id: 0, title: '无法连接至服务器', url: '', sort: 0 }]
+  }
 }
 
 window.execAddCountBsgExtUrls = async function execAddCountBsgExtUrls(id, sort, url) {
@@ -53,9 +61,13 @@ window.execAddCountBsgExtUrls = async function execAddCountBsgExtUrls(id, sort, 
     where: { id },
     data: { sort: sort + 1 },
   }
-  let {data} = await axios.post('http://api.local.laijw.com/graphql', {query: AddCountBsgExtUrls, variables: {input}})
-  window.open(url, '_blank')
-  return data.data.bsgExtUrls
+  try {
+    let {data} = await axios.post('http://api.local.laijw.com/graphql', {query: AddCountBsgExtUrls, variables: {input}})
+    window.open(url, '_blank')
+    return data.data.bsgExtUrls
+  } catch (e) {
+    return { id: 0, title: '无法连接至服务器', url: '', sort: 0 }
+  }
 }
 
 

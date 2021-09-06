@@ -13,11 +13,9 @@ This is a starting place for building a Web Extension with Tailwindcss & Alpinej
 * Upload the entire `extension` folder
 
 ## Roadmap
-- 上下快捷键hover
-- 超长文字截取
+- 公告跑马灯
 - 集成本地书签
 - 用户提交链接
-- 公告跑马灯
 - 网络接口调试界面
 
 ## Credit

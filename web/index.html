@@ -19,19 +19,30 @@
 <body>
 
 <div
-  x-data="{ search: '', posts: [] }"
+  x-data="{ current: 0, search: '', posts: [] }"
   x-init="posts = await execQueryBsgExtUrls()"
 >
-  <input @keyup="posts = await execSearchBsgExtUrls(search)" class="w-full" aria-label="搜索" x-model="search" placeholder="搜索...">
+  <input
+    x-model="search"
+    @keyup="posts = await execSearchBsgExtUrls(search)"
+    @keyup.down="if (current < posts.length - 1) current++"
+    @keyup.up="if (current > 0) current--"
+    @keyup.enter="window.open(posts[current].url, '_blank')"
+    autofocus
+    class="w-full"
+    aria-label="搜索"
+    placeholder="搜索..."
+  >
 
   <div class="grid grid-cols-1 gap-2 py-4 bg-gray-800 rounded shadow">
-    <template x-for="item in posts">
+    <template x-for="(item,index) in posts">
       <a
         x-text="item.title"
         :href="item.url"
         @click="await execAddCountBsgExtUrls(item.id, item.sort)"
         target="_blank"
-        class="text-xl hover:no-underline text-center p-6 rounded bg-gray-700 hover:bg-gray-600 hover:shadow-2xl"
+        :class="index === current ? 'bg-gray-600' : 'bg-gray-700'"
+        class="text-xl truncate text-center p-6 rounded hover:bg-gray-600 hover:no-underline"
       ></a>
     </template>
   </div>
@@ -74,13 +85,21 @@
   `;
 
   async function execQueryBsgExtUrls() {
-    let {data} = await axios.post('http://api.local.laijw.com/graphql', {query: QueryBsgExtUrls, variables: {limit}})
-    return data.data.bsgExtUrls
+    try {
+      let {data} = await axios.post('http://api.local.laijw.com/graphql', {query: QueryBsgExtUrls, variables: {limit}})
+      return data.data.bsgExtUrls
+    } catch (e) {
+      return [{ id: 0, title: '无法连接至服务器', url: '', sort: 0 }]
+    }
   }
 
   async function execSearchBsgExtUrls(keywords) {
-    let {data} = await axios.post('http://api.local.laijw.com/graphql', {query: SearchBsgExtUrls, variables: {keywords,limit}})
-    return data.data.bsgExtUrls
+    try {
+      let {data} = await axios.post('http://api.local.laijw.com/graphql', {query: SearchBsgExtUrls, variables: {keywords,limit}})
+      return data.data.bsgExtUrls
+    } catch (e) {
+      return [{ id: 0, title: '无法连接至服务器', url: '', sort: 0 }]
+    }
   }
 
   async function execAddCountBsgExtUrls(id, sort) {
@@ -88,8 +107,12 @@
       where: { id },
       data: { sort: sort + 1 },
     }
-    let {data} = await axios.post('http://api.local.laijw.com/graphql', {query: AddCountBsgExtUrls, variables: {input}})
-    return data.data.bsgExtUrls
+    try {
+      let {data} = await axios.post('http://api.local.laijw.com/graphql', {query: AddCountBsgExtUrls, variables: {input}})
+      return data.data.bsgExtUrls
+    } catch (e) {
+      return [{ id: 0, title: '无法连接至服务器', url: '', sort: 0 }]
+    }
   }
 
 </script>

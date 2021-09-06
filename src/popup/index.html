@@ -8,16 +8,27 @@
 <div class="p-4 min-w-popup">
 
   <div
-    x-data="{ search: '', posts: [] }"
+    x-data="{ current: 0, search: '', posts: [] }"
     x-init="posts = await execQueryBsgExtUrls()"
   >
-    <input @keyup="posts = await execSearchBsgExtUrls(search)" autofocus class="w-full text-base dark:bg-gray-800 mb-2 p-1 border-2 dark:border-gray-600 dark:text-gray-100 rounded" aria-label="搜索" x-model="search" placeholder="搜索...">
+    <input
+      x-model="search"
+      @keyup="posts = await execSearchBsgExtUrls(search)"
+      @keyup.down="if (current < posts.length - 1) current++"
+      @keyup.up="if (current > 0) current--"
+      @keyup.enter="window.open(posts[current].url, '_blank')"
+      autofocus
+      class="w-full text-base dark:bg-gray-800 mb-2 p-1 border-2 dark:border-gray-600 dark:text-gray-100 rounded"
+      aria-label="搜索"
+      placeholder="搜索..."
+    >
     <div class="grid grid-cols-1 gap-1">
-      <template x-for="item in posts">
+      <template x-for="(item,index) in posts">
         <div
           x-text="item.title"
           @click="await execAddCountBsgExtUrls(item.id, item.sort, item.url)"
-          class="bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-600 text-blue-400 hover:text-white dark:text-blue-400 dark:hover:text-blue-200 text-base cursor-pointer text-center p-2 rounded hover:shadow-2xl"
+          :class="index === current ? 'bg-gray-300 dark:bg-gray-600' : 'bg-gray-200 dark:bg-gray-800'"
+          class="hover:bg-gray-300 dark:hover:bg-gray-600 text-blue-400 hover:text-white dark:text-blue-400 dark:hover:text-blue-200 text-base cursor-pointer text-center truncate p-2 rounded hover:shadow-2xl"
         ></div>
       </template>
     </div>
