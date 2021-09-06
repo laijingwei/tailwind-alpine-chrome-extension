@@ -20,16 +20,16 @@
 
 <div
   x-data="{ search: '', posts: [] }"
-  x-init="posts = (await axios('http://api.local.laijw.com/bsg-ext-urls?_sort=sort:desc&_limit=9')).data"
+  x-init="posts = await execQueryBsgExtUrls()"
 >
-  <input @keyup="posts = (await axios(`http://api.local.laijw.com/bsg-ext-urls?_q=${search}&_sort=sort:desc&_limit=9`)).data" class="w-full" aria-label="搜索" x-model="search" placeholder="搜索...">
+  <input @keyup="posts = await execSearchBsgExtUrls(search)" class="w-full" aria-label="搜索" x-model="search" placeholder="搜索...">
 
-  <div class="grid grid-cols-3 gap-2 py-4 bg-gray-800 rounded shadow">
+  <div class="grid grid-cols-1 gap-2 py-4 bg-gray-800 rounded shadow">
     <template x-for="item in posts">
       <a
         x-text="item.title"
         :href="item.url"
-        @click="await axios.put(`http://api.local.laijw.com/bsg-ext-urls/${item.id}`, { sort: item.sort + 1 })"
+        @click="await execAddCountBsgExtUrls(item.id, item.sort)"
         target="_blank"
         class="text-xl hover:no-underline text-center p-6 rounded bg-gray-700 hover:bg-gray-600 hover:shadow-2xl"
       ></a>
@@ -37,6 +37,62 @@
   </div>
 
 </div>
+
+<script>
+  let limit = 5;
+  let QueryBsgExtUrls = `
+    query ($limit: Int!) {
+      bsgExtUrls(limit: $limit, sort: "sort:desc") {
+        id
+        title
+        url
+        sort
+      }
+    }
+  `;
+  let SearchBsgExtUrls = `
+    query ($limit: Int!, $keywords: String!) {
+      bsgExtUrls(limit: $limit, sort: "sort:desc", where: { _q: $keywords }) {
+        id
+        title
+        url
+        sort
+      }
+    }
+  `;
+  let AddCountBsgExtUrls = `
+    mutation ($input: updateBsgExtUrlInput!) {
+      updateBsgExtUrl(input: $input) {
+        bsgExtUrl {
+          id
+          title
+          url
+          sort
+        }
+      }
+    }
+  `;
+
+  async function execQueryBsgExtUrls() {
+    let {data} = await axios.post('http://api.local.laijw.com/graphql', {query: QueryBsgExtUrls, variables: {limit}})
+    return data.data.bsgExtUrls
+  }
+
+  async function execSearchBsgExtUrls(keywords) {
+    let {data} = await axios.post('http://api.local.laijw.com/graphql', {query: SearchBsgExtUrls, variables: {keywords,limit}})
+    return data.data.bsgExtUrls
+  }
+
+  async function execAddCountBsgExtUrls(id, sort) {
+    let input = {
+      where: { id },
+      data: { sort: sort + 1 },
+    }
+    let {data} = await axios.post('http://api.local.laijw.com/graphql', {query: AddCountBsgExtUrls, variables: {input}})
+    return data.data.bsgExtUrls
+  }
+
+</script>
 
 </body>
 </html>
