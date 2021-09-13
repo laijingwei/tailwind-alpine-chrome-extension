@@ -9,11 +9,11 @@
 
   <div
     x-data="{ current: 0, announcement: '', search: '', posts: [] }"
-    x-init="posts = await execQueryBsgExtUrls(); announcement = await execQueryBsgExtAnnouncement()"
+    x-init="posts = await queryBsgExtUrls(); announcement = await queryBsgExtAnnouncement()"
   >
     <input
       x-model="search"
-      @keyup="posts = await execSearchBsgExtUrls(search)"
+      @keyup="posts = await searchBsgExtUrls(search)"
       @keyup.down="if (current < posts.length - 1) current++"
       @keyup.up="if (current > 0) current--"
       @keyup.enter="if (posts.length > 0) window.open(posts[current].url, '_blank')"
@@ -27,7 +27,7 @@
         <template x-for="(item,index) in posts">
           <div
             x-text="item.title"
-            @click="await execAddCountBsgExtUrls(item.id, item.sort, item.url)"
+            @click="await addCountBsgExtUrls(item.id, item.sort, item.url)"
             :class="index === current ? 'bg-gray-300 dark:bg-gray-600' : 'bg-gray-200 dark:bg-gray-800'"
             class="hover:bg-gray-300 dark:hover:bg-gray-600 text-blue-400 hover:text-white dark:text-blue-400 dark:hover:text-blue-200 text-base cursor-pointer text-center truncate p-2 rounded hover:shadow-2xl"
           ></div>
